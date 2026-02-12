@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #0f172a;
+            color: #e5e7eb;
+        }
+
+        .navbar {
+            background: #020617;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+            color: #38bdf8;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            color: white;
+            background: #ef4444;
+            padding: 8px 14px;
+            border-radius: 6px;
+            margin-left: 10px;
+        }
+
+        .nav-buttons a.register {
+            background: #22c55e;
+        }
+
+        .container {
+            width: 85%;
+            margin: 30px auto;
+        }
+
+        .card {
+            background: #020617;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.6);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #38bdf8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        th {
+            background: #020617;
+            color: #38bdf8;
+            text-align: left;
+        }
+
+        .btn {
+            padding: 7px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: white;
+            background: #3b82f6;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            opacity: 0.85;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</div>
+<!-- NAVBAR -->
+<div class="navbar">
+    <h2>Student Dashboard</h2>
+    <div class="nav-buttons">
+        <a href="{{ url_for('student_events') }}" class="register">Register Events</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- STUDENT INFO -->
+    <div class="card">
+        <h3>Profile</h3>
+        <p><b>Name:</b> {{ student.User_name }}</p>
+        <p><b>Department:</b> {{ student.Dept }}</p>
+        <p><b>Email:</b> {{ student.Email }}</p>
+        <p><b>Phone:</b> {{ student.Phone_Number }}</p>
+    </div>
+
+    <!-- REGISTERED EVENTS -->
+    <div class="card">
+        <h3>Registered Events</h3>
+
+        {% if registered_events %}
+        <table>
+            <tr>
+                <th>Event</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Type</th>
+                <th>Feedback</th>
+            </tr>
+
+            {% for event in registered_events %}
+            <tr>
+                <td>{{ event.Event_name }}</td>
+                <td>{{ event.Date }}</td>
+                <td>{{ event.Time }}</td>
+                <td>{{ event.Type }}</td>
+                <td>
+                    <a class="btn"
+                       href="{{ url_for('give_feedback', event_id=event.EventID) }}">
+                       Give Feedback
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>No registered events yet.</p>
+        {% endif %}
+    </div>
+
+</div>
+
+</body>
+</html>

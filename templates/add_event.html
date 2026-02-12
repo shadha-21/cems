@@ -1,0 +1,38 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Add Event</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</div>
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>Add New Event</h2>
+
+        <form method="POST">
+            <input type="text" name="name" placeholder="Event Name" required>
+
+            <input type="date" name="date" required>
+
+            <input type="time" name="time" required>
+
+            <input type="text" name="type" placeholder="Event Type (Technical / Cultural)" required>
+
+            <input type="text" name="sponsor" placeholder="Sponsors">
+
+            <button type="submit">Add Event</button>
+        </form>
+
+        <div class="back-home">
+            <a href="{{ url_for('admin_dashboard') }}">← Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
